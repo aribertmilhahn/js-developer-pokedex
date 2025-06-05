@@ -81,9 +81,24 @@
 .pokemon {
     display: flex;
     flex-direction: column;
+
     margin: .5rem;
+    border-radius: 1rem;
+}
+
+.pokemon button {
+    border: none;
+    background-color: transparent;
+
+    display: flex;
+    flex-direction: column;
     padding: 1rem;
     border-radius: 1rem;
+}
+
+.pokemon button:active {
+    background-color: #0000002F;
+    opacity: 0.85;
 }
 
 .pokemon .number {
@@ -94,6 +109,7 @@
 }
 
 .pokemon .name {
+    text-align: left;
     text-transform: capitalize;
     color: #fff;
     margin-bottom: .25rem;
@@ -127,7 +143,8 @@
     height: 70px;
 }
 
-.pagination {
+.pagination,
+.back-button {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -136,7 +153,8 @@
     padding: 1rem;
 }
 
-.pagination button {
+.pagination button,
+.back-button button {
     padding: .25rem .5rem;
     margin: .25rem 0;
     font-size: .625rem;
@@ -144,6 +162,80 @@
     background-color: #6c79db;
     border: none;
     border-radius: 1rem;
+}
+
+#detail-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.general-detail {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#general-detail-right .dateil-number {
+    color: #FFFFFF;
+    text-align: right;
+    font-size: 1.25rem;
+}
+
+#general-detail-left .name {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-size: 2.5rem;
+}
+
+#general-detail-left .types {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#general-detail-left .types .detail-type {
+    color: #fff;
+    padding: .25rem .5rem;
+    margin: .25rem 0;
+    max-width: 80px;
+    font-size: 1rem;
+    border-radius: 1rem;
+    text-align: center;
+    filter: brightness(1.1);
+}
+
+#pokemon-pic {
+    height: 300px;
+    width: 100%;
+    text-align: center;
+}
+
+#pokemon-detail-picture {
+    position: relative;
+    z-index: 2;
+    height: 300px;
+}
+
+.stats-panel {
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-top: -3rem;
+    gap: 1rem;
+}
+
+.stats-text {
+    text-transform: capitalize;
+}
+
+.hidden {
+    display: none;
 }
 
 @media screen and (min-width: 380px) {
