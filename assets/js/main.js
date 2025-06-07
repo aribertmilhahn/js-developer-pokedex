@@ -3,16 +3,18 @@ const loadMoreButton = document.getElementById('loadMoreButton')
 const backButton = document.getElementById('back-button')
 
 const pokemonDetail = document.getElementById('detail-panel')
+let currentPokemonType = "grass"
 
 const maxRecords = 151
 const limit = 10
 let offset = 0;
 
 function convertPokemonToLi(pokemon) {
+    console.log(pokemon.number)
     return `
         <li class="pokemon ${pokemon.type}">
             <button id="pokebutton-${pokemon.number}">
-                <span class="number">#${('000' + pokemon.number).substring(-3)}</span>
+                <span class="number">#${('000' + pokemon.number).substr(-3)}</span>
                 <span class="name">${pokemon.name}</span>
 
                 <div class="detail">
@@ -59,6 +61,7 @@ backButton.addEventListener('click', () => {
     loadMoreButton.classList.remove("hidden")
     backButton.classList.add("hidden")
     pokemonDetail.classList.add("hidden")
+    pokemonDetail.innerHTML = "";
 })
 
 function addEventListenerToPokemonButtons(offset, limit) {
@@ -68,9 +71,49 @@ function addEventListenerToPokemonButtons(offset, limit) {
             pokemonList.classList.add("hidden")
             loadMoreButton.classList.add("hidden")
             backButton.classList.remove("hidden")
-            let details = pokeApi.getPokemonStats(i)
-            console.log(details)
+            pokemonDetail.classList.remove("hidden")
+
+            pokeApi.getPokemonStats(i).then((details) => {
+                const pokemonDetailHTML = convertDetailsToHTML(details)
+                console.log(pokemonDetailHTML)
+    
+                pokemonDetail.classList.remove(currentPokemonType)
+                currentPokemonType = details.type
+                pokemonDetail.classList.add(currentPokemonType)
+
+                pokemonDetail.innerHTML = pokemonDetailHTML
+            })
         })
     }
 }
 
+function convertDetailsToHTML(details) {
+    console.log(details)
+    return `
+        <div class="general-detail">
+            <div id="general-detail-left">
+                <div class="name">${details.name}</div>
+                <ol class="types">
+                     ${details.types.map((type) => `<li class="detail-type ${type}">${type}</li>`).join('')}
+                </ol>
+            </div>
+            <div id="general-detail-right">
+                <span class="dateil-number">#${('000' + details.number).substr(-3)}</span>
+            </div>
+        </div>
+
+        <div id="pokemon-pic">
+            <img id="pokemon-detail-picture" src="${details.sprite}" alt="bulbasaur">
+        </div>
+        
+        <div class="stats-panel">
+            <h2>Base Stats</h2>
+            <span class="stats-text">hp: ${details.hp.base_stat}</span>
+            <span class="stats-text">attack: ${details.attack.base_stat}</span>
+            <span class="stats-text">defense: ${details.defense.base_stat}</span>
+            <span class="stats-text">sp. attack: ${details.specialAttack.base_stat}</span>
+            <span class="stats-text">sp. defense: ${details.specialDefense.base_stat}</span>
+            <span class="stats-text">speed: ${details.speed.base_stat}</span>
+        </div>
+    `
+}
