@@ -10,7 +10,6 @@ const limit = 10
 let offset = 0;
 
 function convertPokemonToLi(pokemon) {
-    console.log(pokemon.number)
     return `
         <li class="pokemon ${pokemon.type}">
             <button id="pokebutton-${pokemon.number}">
@@ -75,12 +74,9 @@ function addEventListenerToPokemonButtons(offset, limit) {
 
             pokeApi.getPokemonStats(i).then((details) => {
                 const pokemonDetailHTML = convertDetailsToHTML(details)
-                console.log(pokemonDetailHTML)
-    
                 pokemonDetail.classList.remove(currentPokemonType)
                 currentPokemonType = details.type
                 pokemonDetail.classList.add(currentPokemonType)
-
                 pokemonDetail.innerHTML = pokemonDetailHTML
             })
         })
@@ -88,7 +84,6 @@ function addEventListenerToPokemonButtons(offset, limit) {
 }
 
 function convertDetailsToHTML(details) {
-    console.log(details)
     return `
         <div class="general-detail">
             <div id="general-detail-left">
